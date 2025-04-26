@@ -11,7 +11,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 echo 'Cloning repository...'
-                git branch: 'main', url: 'https://github.com/PawanK7390/Q2-flask-app.git'
+                git branch: 'master', url: 'https://github.com/PawanK7390/Q2-flask-app.git'
             }
         }
 
