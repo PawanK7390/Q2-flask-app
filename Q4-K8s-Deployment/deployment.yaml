@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: flask-app
+  template:
+    metadata:
+      labels:
+        app: flask-app
+    spec:
+      containers:
+      - name: flask-app
+        image: pawank7390/flask-app-pawank:latest
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-app-service
+spec:
+  selector:
+    app: flask-app  # Match the app label with the Deployment
+  ports:
+    - protocol: TCP
+      port: 80  # Port exposed by the service
+      targetPort: 5000  # Port on the Flask app container
+  type: NodePort  # This is critical to ensure the service is exposed via NodePort
+  

@@ -1,0 +1,18 @@
+az login
+
+az group create --name rg-deployment --location eastus
+
+az aks create --resource-group rg-deployment --name aks-kapoorApps --node-count 2 --node-vm-size Standard_B2ms --generate-ssh-keys
+
+az aks get-credentials --resource-group rg-deployment --name aks-kapoorApps
+
+kubectl apply -f deployment.yaml
+
+kubectl get pods -w
+
+kubectl get svc
+
+kubectl port-forward svc/flask-app-service 8081:80
+
+http://localhost:8081
+
